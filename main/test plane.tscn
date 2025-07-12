@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://l1uodfi4ek4r"]
+[gd_scene load_steps=6 format=3 uid="uid://l1uodfi4ek4r"]
 
-[ext_resource type="PackedScene" uid="uid://c5knjye0guhkt" path="res://Player/player.tscn" id="1_yqokj"]
+[ext_resource type="PackedScene" uid="uid://c5knjye0guhkt" path="res://player/player.tscn" id="1_yqokj"]
 [ext_resource type="PackedScene" uid="uid://doqsbjtfabbl" path="res://Building/Objects/wooden_floor_pallet.tscn" id="2_5c458"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqokj"]
@@ -16,12 +16,6 @@ sky = SubResource("Sky_5c458")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_11r7y"]
-size = Vector2(20, 20)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yqokj"]
-data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
-
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -31,18 +25,40 @@ environment = SubResource("Environment_63bm6")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="floor" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_11r7y")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_yqokj")
-
 [node name="Player" parent="." instance=ExtResource("1_yqokj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="wooden_floor_pallet" parent="." instance=ExtResource("2_5c458")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.572, 0, 3.184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75812, 0.165133, -1.74833)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(10, 1, 8)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.214878, 1.5455)
+size = Vector3(1.5, 0.5, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.464878, 2.0455)
+size = Vector3(1.5, 1, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.714878, 2.5455)
+size = Vector3(1.5, 1.5, 1)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+sides = 30
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.5)
+radial_segments = 30
+rings = 25
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.5, 0, -0.5)
+polygon = PackedVector2Array(-2.5, 0, 0, 0.5, 1, 1, 1, 0)
