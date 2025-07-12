@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://brm2r7ev3np60"]
-
-[ext_resource type="PackedScene" uid="uid://2a4m2h6x7208" path="res://player/player.tscn" id="1_63c7r"]
+[gd_scene format=3 uid="uid://brm2r7ev3np60"]
 
 [node name="Game" type="Node3D"]
 
@@ -41,6 +39,3 @@ polygon = PackedVector2Array(-2.5, 0, 0, 0.5, 1, 1, 1, 0)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
 shadow_enabled = true
-
-[node name="Player" parent="." instance=ExtResource("1_63c7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0214362, 1.03043, -0.0568991)
