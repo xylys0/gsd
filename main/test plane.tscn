@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://l1uodfi4ek4r"]
 
-[ext_resource type="PackedScene" uid="uid://c5knjye0guhkt" path="res://robotPlayer/player.tscn" id="1_yqokj"]
+[ext_resource type="PackedScene" uid="uid://c5knjye0guhkt" path="res://Player/player.tscn" id="1_yqokj"]
 [ext_resource type="PackedScene" uid="uid://doqsbjtfabbl" path="res://Building/Objects/wooden_floor_pallet.tscn" id="2_5c458"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqokj"]
