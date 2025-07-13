@@ -4,9 +4,9 @@ extends CharacterBody3D
 @export_range(0.0,1.0) var mouse_sensitivity := 0.25
 
 @export_group("Movement")
-@export var move_speed := 8.0
-@export var acceleration := 30.0
-@export var rotation_speed := 12.0
+@export var move_speed := 6
+@export var acceleration := 80
+@export var rotation_speed := 15
 @export var jump_impulse := 12.0
 
 var gravity := -30.0
