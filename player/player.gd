@@ -16,10 +16,18 @@ var _last_movement_direction := Vector3.BACK
 
 
 @onready var cameraPivot := $CameraPivot
+@onready var cameraArm := $CameraPivot/SpringArm3D
 @onready var camera := $CameraPivot/SpringArm3D/Camera3D
 
 @onready var skin := $RobotArmature #Player Charecter Model
 @onready var animTree := $AnimationTree #Animation Handeler
+
+@onready var stepCollider := $StepCollider
+@onready var stepCMarker := $RobotArmature/StepCollideMarker
+
+@export var buildMode := false
+var buildCamOffset := -1.0
+var buildCamSpeed := 0.1
 
 
 #Player Movement
@@ -28,8 +36,10 @@ var _last_movement_direction := Vector3.BACK
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if event.is_action_pressed("ui_cancel"):
+	elif event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	elif event.is_action_pressed("Build Mode"):
+		buildMode = not buildMode
 		
 
 
@@ -46,6 +56,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	handle_animations(delta) # animation handeling
 	
+	if buildMode:
+		cameraArm.position.x = lerp(cameraArm.position.x,buildCamOffset,buildCamSpeed)
+	else:
+		cameraArm.position.x = lerp(cameraArm.position.x,0.0,buildCamSpeed)
+		
 	# rotates camera based on mouse inputs
 	cameraPivot.rotation.x += _camera_input_direction.y * delta
 	cameraPivot.rotation.x = clamp(cameraPivot.rotation.x,
@@ -84,6 +99,7 @@ func _physics_process(delta: float) -> void:
 		_last_movement_direction = move_direction
 	var target_angle := Vector3.BACK.signed_angle_to(_last_movement_direction,Vector3.UP)
 	skin.global_rotation.y = lerp_angle(skin.rotation.y,target_angle,rotation_speed * delta)
+	stepCollider.global_position = stepCMarker.global_position
 	
 	#animation prompting
 	if is_starting_jump:
